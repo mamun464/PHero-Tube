@@ -26,6 +26,10 @@
 
         font-family: 'Inter', sans-serif;
     }
+
+    .no-gap {
+        grid-column-gap: 0;
+    }
 </style>
 <!-- <script>
     tailwind.config = {
@@ -48,7 +52,7 @@
     <main class="container mx-auto mt-8">
         <!-- Nav section -->
         <header class="">
-            <div class="flex flex-wrap justify-between mt-12">
+            <div class="flex flex-wrap justify-between mt-12 p-4">
                 <div class="w-full flex justify-center mb-3 md:w-auto md:mb-0">
                     <img src="./Logo.png" alt="logo_missing">
                 </div>
@@ -65,11 +69,28 @@
             </div>
         </header>
 
+        <!-- categories Buttion Added -->
+        <section>
+            <!-- button container -->
+            <div class="md:hidden">
+                <div id="categoriesContainerOne" class=" grid grid-cols-1 gap-4 p-4">
+                </div>
+            </div>
+
+            <div class="hidden md:block">
+                <div id="categoriesContainerTwo" class=" flex gap-4 p-4 justify-center ">
+                </div>
+            </div>
+
+
+
+        </section>
+
     </main>
 
 
 
-    <script src="phone.js"></script>
+    <script src="JS Files/phTube.js"></script>
 
 </body>
 
