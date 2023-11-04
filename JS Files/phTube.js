@@ -1,12 +1,19 @@
-const categoryShow = async () => {
+let requestData = [];
+let categoryId = null;
+let sortButtonState = false;
+// let isActiveSort = false;
+
+const categoryShow = async (sortMode = false) => {
+
     const request = await fetch('https://openapi.programming-hero.com/api/videos/categories');
     const data = await request.json();
     const categories = data.data;
 
 
-    const categoriesContainer = document.getElementById("categoriesContainerTwo");
-    const categoriesContainerOne = document.getElementById("categoriesContainerOne");
+    const categoriesContainer = document.getElementById("categoriesContainerLaptopView");
+    const categoriesContainerMobileView = document.getElementById("categoriesContainerMobileView");
     categoriesContainer.innerHTML = "";
+    categoriesContainerMobileView.innerHTML = "";
 
     categories.forEach(EachCategory => {
         // console.log(EachCategory.category);
@@ -15,7 +22,8 @@ const categoryShow = async () => {
         // addCategoryTab.classList.add("w-full")
         addCategoryTab.innerHTML = `
         
-        <button onclick="ShowCategoryWise('${EachCategory.category_id}')"  class=" w-full py-2 px-5 rounded text-[18px] font-medium text-[#252525] bg-[#25252533] md:w-fit">${EachCategory.category}</button>
+        <button onclick="ShowCategoryWise('${EachCategory.category_id}',${sortMode})"
+        class=" w-full py-2 px-5 rounded text-[18px] font-medium text-[#252525] bg-[#25252533] md:w-fit">${EachCategory.category}</button>
 
         `;
 
@@ -23,18 +31,37 @@ const categoryShow = async () => {
 
         // I create two view for diffrent screen
         const addCategoryTabOne = addCategoryTab.cloneNode(true);
-        categoriesContainerOne.appendChild(addCategoryTabOne);
+
+        categoriesContainerMobileView.appendChild(addCategoryTabOne);
     });
 
 
 
 };
 
-const ShowCategoryWise = async (categoryID) => {
-    console.log(categoryID)
-    const request = await fetch(`https://openapi.programming-hero.com/api/videos/category/${categoryID}`)
-    const requestData = (await request.json()).data
+// remove aphabates from a string
 
+function extractNumericValue(views) {
+    // Remove any non-numeric characters (like "K") and parse as an integer
+    return parseInt(views.replace(/[^0-9]/g, ''), 10);
+}
+
+const ShowCategoryWise = async (categoryID, sortMode) => {
+    console.log(categoryID, sortMode)
+
+    categoryId = categoryID
+    const request = await fetch(`https://openapi.programming-hero.com/api/videos/category/${categoryID}`)
+    requestData = (await request.json()).data
+
+    if (sortMode) {
+        if (requestData.length > 0) {
+            forSorted = requestData;
+
+            forSorted.sort((b, a) => extractNumericValue(a.others?.views) - extractNumericValue(b.others?.views));
+
+            // requestData = newData; const newData =
+        }
+    }
 
     const dataVisualizationContainer = document.getElementById("dataVisualizationContainer");
     const noDataSpace = document.getElementById("noDataSpace");
@@ -92,4 +119,28 @@ const ShowCategoryWise = async (categoryID) => {
 
 };
 
+
+
+const isSorted = async () => {
+    console.log('Calling isSorted');
+    const SortButton = document.getElementById("btnSort");
+    if (sortButtonState == false) {
+        sortButtonState = true;
+        const result = await ShowCategoryWise(categoryId, sortButtonState)
+        SortButton.classList.add("active");
+        console.log("result");
+    } else {
+        sortButtonState = false;
+        SortButton.classList.remove("active");
+        const result = await ShowCategoryWise(categoryId, sortButtonState)
+
+    }
+    categoryShow(sortButtonState);
+    // console.log(requestData);
+
+};
+
+console.log(sortButtonState);
+
 categoryShow();
+ShowCategoryWise(1000, sortButtonState)

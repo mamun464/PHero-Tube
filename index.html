@@ -30,6 +30,11 @@
     .no-gap {
         grid-column-gap: 0;
     }
+
+    #btnSort.active {
+        background-color: #FF1F3D;
+        /* Active color */
+    }
 </style>
 <!-- <script>
     tailwind.config = {
@@ -57,7 +62,8 @@
                     <img src="./Logo.png" alt="logo_missing">
                 </div>
                 <div>
-                    <button class="py-2 px-5 rounded text-[18px] font-medium text-[#252525] bg-[#25252533]">Sort by
+                    <button onclick="isSorted()" id="btnSort"
+                        class="py-2 px-5 rounded text-[18px] font-medium text-[#252525] bg-[#25252533]">Sort by
                         view</button>
                 </div>
                 <div>
@@ -73,12 +79,12 @@
         <section>
             <!-- button container -->
             <div class="md:hidden">
-                <div id="categoriesContainerOne" class=" grid grid-cols-1 gap-4 p-4">
+                <div id="categoriesContainerMobileView" class=" grid grid-cols-1 gap-4 p-4">
                 </div>
             </div>
 
             <div class="hidden md:block">
-                <div id="categoriesContainerTwo" class=" flex gap-4 p-4 justify-center ">
+                <div id="categoriesContainerLaptopView" class=" flex gap-4 p-4 justify-center ">
                 </div>
             </div>
 
