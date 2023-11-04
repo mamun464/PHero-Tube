@@ -2,6 +2,9 @@ let requestData = [];
 let categoryId = null;
 let sortButtonState = false;
 // let isActiveSort = false;
+let activeButton = null;
+let allCategoryButton = null;
+let flag = 0;
 
 const categoryShow = async (sortMode = false) => {
 
@@ -21,11 +24,10 @@ const categoryShow = async (sortMode = false) => {
         const addCategoryTab = document.createElement("div");
         // addCategoryTab.classList.add("w-full")
         addCategoryTab.innerHTML = `
-        
-        <button onclick="ShowCategoryWise('${EachCategory.category_id}',${sortMode})"
-        class=" w-full py-2 px-5 rounded text-[18px] font-medium text-[#252525] bg-[#25252533] md:w-fit">${EachCategory.category}</button>
+             <button id="category-${EachCategory.category}" onclick="toggleActive(this,'category-${EachCategory.category}'); RestSortBtn(); ShowCategoryWise('${EachCategory.category_id}', ${sortMode});"
+                class="category-${EachCategory.category} categoryBtn w-full py-2 px-5 rounded text-[18px] font-medium text-[#252525] bg-[#25252533] md:w-fit">${EachCategory.category}</button>
+            `;
 
-        `;
 
         categoriesContainer.appendChild(addCategoryTab)
 
@@ -35,6 +37,24 @@ const categoryShow = async (sortMode = false) => {
         categoriesContainerMobileView.appendChild(addCategoryTabOne);
     });
 
+    if (flag == 0) {
+        let buttons = document.querySelectorAll(".category-All");
+        allCategoryButton = buttons;
+        if (buttons) {
+            buttons.forEach(buttonClick => {
+                // console.log(buttonClick);
+                buttonClick.classList.add("active");
+                flag += 1;
+                // activeButton = AllButton;
+                // buttonClick.click();
+            });
+
+            console.log("Clicked all categories");
+        } else {
+            console.log("Not Clicked all categories");
+        }
+
+    }
 
 
 };
@@ -45,6 +65,7 @@ function extractNumericValue(views) {
     // Remove any non-numeric characters (like "K") and parse as an integer
     return parseInt(views.replace(/[^0-9]/g, ''), 10);
 }
+
 
 const ShowCategoryWise = async (categoryID, sortMode) => {
     console.log(categoryID, sortMode)
@@ -121,6 +142,12 @@ const ShowCategoryWise = async (categoryID, sortMode) => {
 
 
 
+const RestSortBtn = () => {
+    sortButtonState = false;
+    const SortButton = document.getElementById("btnSort");
+    SortButton.classList.remove("active");
+};
+
 const isSorted = async () => {
     console.log('Calling isSorted');
     const SortButton = document.getElementById("btnSort");
@@ -135,12 +162,37 @@ const isSorted = async () => {
         const result = await ShowCategoryWise(categoryId, sortButtonState)
 
     }
-    categoryShow(sortButtonState);
+    // categoryShow(sortButtonState);
     // console.log(requestData);
 
 };
 
-console.log(sortButtonState);
+// For Catagory button colored
+
+function toggleActive(clickedButton, categoryBtnID) {
+
+
+    const clickBtn = document.getElementById(categoryBtnID);
+    console.log("Button click: ", clickedButton.id);
+    console.log("Button click Privious: ", clickBtn.id);
+
+    allCategoryButton.forEach(eachButton => {
+        eachButton.classList.remove("active");
+    });
+
+    if (activeButton) {
+        // console.log(activeButton);
+        activeButton.classList.remove("active");
+    }
+    clickedButton.classList.add("active");
+    activeButton = clickedButton;
+}
+
+
+// console.log(sortButtonState);
 
 categoryShow();
-ShowCategoryWise(1000, sortButtonState)
+ShowCategoryWise(1000, sortButtonState);
+
+
+
