@@ -245,6 +245,14 @@ function toggleActive(clickedButton, categoryBtnID) {
 
 // console.log(sortButtonState);
 
+const blogButton = document.getElementById("blogButton");
+
+// Add a click event listener to the button
+blogButton.addEventListener("click", function () {
+    // Redirect to the desired page (e.g., "blog.html")
+    window.location.href = "blog.html";
+});
+
 categoryShow();
 ShowCategoryWise(1000, sortButtonState);
 

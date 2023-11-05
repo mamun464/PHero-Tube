@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Variable Scope in JavaScript</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="p-8">
+    <h1 class="text-2xl">Discuss the scope of var, let, and const!</h1>
+    <ol class="list-decimal pl-5 ml-5">
+        <li>Var
+            <ul class="list-disc pl-10">
+                <li>Function Scope: Variables declared with var have function scope, meaning they are accessible within
+                    the function in which they are defined. They are not block-scoped.</li>
+                <li>Hoisting: Variables declared with var are hoisted to the top of their containing function or global
+                    scope. However, only the declaration is hoisted, not the initialization. This can lead to unexpected
+                    behavior if you try to access the variable before it's declared.</li>
+                <li>Re-declaration: You can re-declare a variable using var within the same scope without any error.
+                </li>
+            </ul>
+        </li>
+        <li>Const
+            <ul class="list-disc pl-10">
+                <li>Block Scope: Variables declared with const also have block scope, similar to let.</li>
+                <li>Hoisting: Variables declared with const are hoisted to the top of their block but are also in the
+                    temporal dead zone until they are initialized.</li>
+                <li>No Re-declaration: You cannot re-declare a variable using const within the same scope. Additionally,
+                    variables declared with const are constant, meaning their values cannot be changed once they are
+                    assigned.</li>
+            </ul>
+        </li>
+        <li>Let
+            <ul class="list-disc pl-10">
+                <li>Block Scope: Variables declared with let have block scope, meaning they are accessible only within
+                    the block (enclosed by curly braces) where they are defined, including loops, if statements, and
+                    functions.</li>
+                <li>Hoisting: Variables declared with let are hoisted to the top of their block, but they are in the
+                    "temporal dead zone" (TDZ) until they are initialized. This means you cannot access the variable
+                    before its declaration.</li>
+                <li>No Re-declaration: You cannot re-declare a variable using let within the same scope.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h1 class="text-2xl mt-8">Tell us the use cases of null and undefined</h1>
+
+    <ol class="list-decimal pl-5 ml-5">
+        <li>null
+            <ul class="list-disc pl-10">
+                <li>Explicitly assigned: Developers can set a variable or object property to null to indicate that it
+                    intentionally has no value or no reference to an object.</li>
+                <li>Initialization: You can initialize a variable with null to prepare it for a value assignment in the
+                    future.</li>
+                <li>Comparison: null can be used for comparisons to check if a variable or object property has been
+                    explicitly set to "nothing" or "no value."
+                </li>
+                <li>Commonly used in APIs: Some APIs return null to indicate that a requested resource or value doesn't
+                    exist.</li>
+
+            </ul>
+        </li>
+        <li>undefined
+            <ul class="list-disc pl-10">
+                <li>Default value: Variables that have been declared but haven't been assigned a value are automatically
+                    set to undefined. This is the default value.</li>
+                <li>Function parameters: When a function is called with fewer arguments than the number of parameters it
+                    expects, the missing parameters are undefined.</li>
+                <li>Properties that don't exist: When you try to access an object property that doesn't exist, you'll
+                    get undefined.</li>
+                <li>Array elements that don't exist: Accessing an array element at an index that doesn't exist will
+                    return undefined.</li>
+                <li>Return value: If a function doesn't explicitly return a value, it returns undefined</li>
+            </ul>
+        </li>
+
+    </ol>
+
+    <h1 class="text-2xl mt-8">What do you mean by REST API?</h1>
+    <p class="ml-5">
+        A REST API, or Representational State Transfer Application Programming Interface, is a set of rules and
+        conventions for building and interacting with web services. It is an architectural style for designing networked
+        applications and is one of the most common approaches for creating APIs on the internet. Here are some key
+        aspects of REST APIs:
+    </p>
+
+</body>
+
+</html>
