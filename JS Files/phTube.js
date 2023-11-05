@@ -93,12 +93,13 @@ const ShowCategoryWise = async (categoryID, sortMode) => {
 
         noDataSpace.classList.add("hidden");
 
-        requestData.forEach(content => {
+        requestData.forEach((content, index) => {
             const elementToDisplay = document.createElement("div");
+            elementToDisplay.className = "image-container";
             elementToDisplay.innerHTML = `
         
         <div class="">
-        <figure><img class="w-[312px] h-[200px] rounded-lg"  src="${content.thumbnail}" alt="Shoes" /></figure>
+        <figure><img id="img-${content?.category_id}-${index}" class="w-[312px] h-[200px] rounded-lg"  src="${content.thumbnail}" alt="Shoes" /></figure>
         <div class="flex gap-3 mt-5">
             <div class="avatar">
                 <div class="w-10 h-10 rounded-full">
@@ -117,7 +118,60 @@ const ShowCategoryWise = async (categoryID, sortMode) => {
     </div>
 
         `;
+
+
             dataVisualizationContainer.appendChild(elementToDisplay);
+
+            let posted_date = content?.others?.posted_date
+            if (posted_date) {
+                console.log("Posted date: ", posted_date);
+                imgId = `img-${content?.category_id}-${index}`;
+                // console.log(id);
+                const catchImgByID = document.getElementById(imgId);
+                // console.log(catchImgByID);
+                const overlay = document.createElement("div");
+                overlay.className = "image-overlay text-[#fff] text-xs font-normal";
+
+
+                const years = Math.floor(posted_date / 31536000);
+                posted_date = posted_date % 31536000;
+                const days = Math.floor(posted_date / 86400);
+                posted_date = posted_date % 86400;
+                const hours = Math.floor(posted_date / 3600);
+                console.log(hours);
+                posted_date = posted_date % 3600;
+                const minutes = Math.floor(posted_date / 60);
+                posted_date = posted_date % 60;
+
+
+
+                let finalTime = "";
+
+                if (years > 0) {
+                    finalTime += `${years}y `;
+                }
+                if (days > 0) {
+                    finalTime += `${days}d `;
+                }
+                if (hours > 0) {
+                    finalTime += `${hours}hrs `;
+                }
+
+                if (minutes > 0) {
+                    finalTime += `${minutes}min `;
+                }
+
+                if (posted_date > 0 || finalTime === "") {
+                    finalTime += `${posted_date}sec`;
+                }
+
+
+                overlay.textContent = finalTime + " ago";
+                elementToDisplay.appendChild(overlay);
+
+            } else {
+                console.log("No date: ");
+            }
         });
 
     } else {

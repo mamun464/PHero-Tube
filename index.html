@@ -40,6 +40,30 @@
         background-color: #FF1F3D;
         /* Active color */
     }
+
+    .image-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .image-container img {
+        width: 312px;
+        height: 200px;
+        display: block;
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 50%;
+        right: 5px;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 5px 10px;
+        font-size: 14px;
+        border-radius: 4px;
+
+    }
 </style>
 <!-- <script>
     tailwind.config = {
